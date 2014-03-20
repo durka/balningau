@@ -1,0 +1,17 @@
+This project is set up mostly according to http://www.jeffknupp.com/blog/2013/12/18/starting-a-django-16-project-the-right-way/
+
+To get a dev environment set up the first time:
+1. Install Python and pip
+2. pip install virtualenv
+3. In the balningau directory:
+   a. virtualenv .
+   b. source bin/activate
+   c. pip install -r requirements.txt
+   d. ./manage.py syncdb
+   e. ./manage.py migrate
+
+And thereafter:
+1. In the balningau directory:
+   a. source bin/activate
+   b. ./manage.py runserver
+
