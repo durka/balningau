@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}ro gismu{% endblock %}
+
+{% block header %}
+<h1>ro gismu</h1>
+{% endblock %}
+
+{% block content %}
+    <ol>
+        {% for gismu in gimste %}
+            <li>
+                <b>{{ gismu }}</b>
+                <br/>
+                <ul>
+                    {% for proposal in gismu.proposals %}
+                        <li>
+                            <i>{{ proposal.cmene }}</i>
+                            <br/>
+                            <small>(type: {{ proposal.get_klesi_display }} / compat: {{ proposal.get_mapti_display }})</small>
+                            <br/>
+                            {{ proposal.velcki }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ol>
+{% endblock %}
+
