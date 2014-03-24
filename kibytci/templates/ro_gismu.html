@@ -11,15 +11,16 @@
         {% for gismu in gimste %}
             <li>
                 <b>{{ gismu }}</b>
-                <br/>
                 <ul>
                     {% for proposal in gismu.proposals %}
                         <li>
                             <i>{{ proposal.cmene }}</i>
-                            <br/>
+                            <p>
                             <small>(type: {{ proposal.get_klesi_display }} / compat: {{ proposal.get_mapti_display }})</small>
-                            <br/>
+                            </p>
+                            <p>
                             {{ proposal.velcki|safe }}
+                            </p>
                         </li>
                     {% endfor %}
                 </ul>
