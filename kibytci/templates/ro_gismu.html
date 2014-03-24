@@ -19,7 +19,7 @@
                             <br/>
                             <small>(type: {{ proposal.get_klesi_display }} / compat: {{ proposal.get_mapti_display }})</small>
                             <br/>
-                            {{ proposal.velcki }}
+                            {{ proposal.velcki|safe }}
                         </li>
                     {% endfor %}
                 </ul>
