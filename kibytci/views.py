@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from kibytci.models import Gismu, Proposal
-from markdown import markdown
+from snudown import *
 
 def ro_gismu(request):
     gimste = Gismu.objects.all()
