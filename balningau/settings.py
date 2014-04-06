@@ -36,7 +36,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_comments',
-    'south',
     'bootstrap3',
     'kibytci',
 )
