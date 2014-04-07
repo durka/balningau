@@ -1,0 +1,23 @@
+{% load comments %}
+
+<style type="text/css">
+    #id_honeypot { display: none }
+</style>
+
+{% if user.is_authenticated %}
+    <button onclick="toggle_form('{{ type }}{{ thing.id }}', this);">{{ text }}</button>
+    <div id="{{ type }}{{ thing.id }}" style="display: none">
+        {% get_comment_form for thing as form %}
+        <form action="{% comment_form_target %}" method="post">
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf }}"/>
+            {{ form.comment }}
+            {{ form.honeypot }}
+            {{ form.content_type }}
+            {{ form.object_pk }}
+            {{ form.timestamp }}
+            {{ form.security_hash }}
+            <input type="submit" name="submit" value="Post">
+        </form>
+    </div>
+{% endif %}
+

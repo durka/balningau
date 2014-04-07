@@ -8,6 +8,7 @@
 
 {% block content %}
 {% load comments %}
+{% load markdown %}
     <ol>
         {% for gismu in gimste %}
             <li>
@@ -16,15 +17,14 @@
                     {% for proposal in gismu.proposals %}
                         {% get_comment_count for proposal as comment_count %}
                         <li>
-                            <i>{{ proposal.cmene }}</i> ({{comment_count}} comment{{comment_count|pluralize}})
+                            <i>{{ proposal.cmene }}</i> ({{ comment_count }} comment{{ comment_count|pluralize }})
                             <p>
                             <small>(type: {{ proposal.get_klesi_display }} / compat: {{ proposal.get_mapti_display }})</small>
                             </p>
                             <p>
-                            {{ proposal.velcki|safe }}
+                            {{ proposal.velcki|markdown|safe }}
                             </p>
-                            {% render_comment_list for proposal %}
-                            {% render_comment_form for proposal %}
+                            {% include "pinka.html" with thing=proposal me="pinka.html" csrf=csrf_token level=0 %}
                         </li>
                     {% endfor %}
                 </ul>
