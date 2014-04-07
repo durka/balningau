@@ -35,6 +35,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'django_comments',
     'bootstrap3',
     'kibytci',
@@ -53,6 +54,7 @@ ROOT_URLCONF = 'balningau.urls'
 
 WSGI_APPLICATION = 'balningau.wsgi.application'
 
+SITE_ID = 1
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases

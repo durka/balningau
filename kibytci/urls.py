@@ -3,5 +3,6 @@ import views
 
 urlpatterns = patterns('',
     url(r'^ro$', views.ro_gismu),
+    url(r'^comments/', include('django_comments.urls')),
 )
 

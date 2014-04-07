@@ -7,20 +7,24 @@
 {% endblock %}
 
 {% block content %}
+{% load comments %}
     <ol>
         {% for gismu in gimste %}
             <li>
                 <b>{{ gismu }}</b>
                 <ul>
                     {% for proposal in gismu.proposals %}
+                        {% get_comment_count for proposal as comment_count %}
                         <li>
-                            <i>{{ proposal.cmene }}</i>
+                            <i>{{ proposal.cmene }}</i> ({{comment_count}} comment{{comment_count|pluralize}})
                             <p>
                             <small>(type: {{ proposal.get_klesi_display }} / compat: {{ proposal.get_mapti_display }})</small>
                             </p>
                             <p>
                             {{ proposal.velcki|safe }}
                             </p>
+                            {% render_comment_list for proposal %}
+                            {% render_comment_form for proposal %}
                         </li>
                     {% endfor %}
                 </ul>
