@@ -17,31 +17,40 @@
 <script type="text/javascript">
     function toggle_form(mode, type, id)
     {
-        var form = $('#' + type + id);
-        var reply_button = $('#br' + id);
-        var edit_button = $('#be' + id);
-        var cancel_button = $('#bc' + id);
+        var reply_form    = $('#frm_reply_'  + type + id);
+        var edit_form     = $('#frm_edit_'   + type + id);
+        var reply_button  = $('#btn_reply_'  + type + id);
+        var edit_button   = $('#btn_edit_'   + type + id);
+        var cancel_button = $('#btn_cancel_' + type + id);
 
-        if (form.is(':visible')) {
-            form.hide();
+        if (reply_form.is(':visible')) {
+            reply_form.hide();
+            cancel_button.hide();
             reply_button.show();
             edit_button.show();
+        } else if (edit_form.is(':visible')) {
+            edit_form.hide();
             cancel_button.hide();
+            reply_button.show();
+            edit_button.show();
         } else {
             switch (mode)
             {
                 case 'reply':
-                    $('#id_comment', form).html('');
+                    edit_form.hide();
+                    edit_button.hide();
+                    reply_button.hide();
+                    reply_form.show();
+                    cancel_button.show();
                     break;
                 case 'edit':
-                    $('#id_comment', form).html($('#ct' + id).attr('data:source'));
+                    reply_form.hide();
+                    reply_button.hide();
+                    edit_button.hide();
+                    edit_form.show();
+                    cancel_button.show();
                     break;
             }
-
-            reply_button.hide();
-            edit_button.hide();
-            cancel_button.show();
-            form.show();
         }
     }
 </script>
@@ -66,9 +75,7 @@
                             <p>
                                 {{ proposal.velcki|markdown|safe }}
                             </p>
-                            {% comment %}
-                                {% include "pinka.html" with thing=proposal me="pinka.html" csrf=csrf_token level=0 %}
-                            {% endcomment %}
+                            {% include "pinka.html" with thing=proposal me="pinka.html" csrf=csrf_token level=0 %}
                             <p>
                                 <a href="/kibytci/selstidi/{{ proposal.id }}/">Discuss</a>
                             </p>

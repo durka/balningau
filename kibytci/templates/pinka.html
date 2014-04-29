@@ -14,7 +14,7 @@
                 {{ comment.comment|markdown|safe }}
             </span>
             <br/>
-            {% include "pinka_finti.html" with thing=comment this=thing type="reply" text="Reply" csrf=csrf %}
+            {% include "pinka_finti.html" with thing=comment type="reply" text="Reply" csrf=csrf %}
         </dd>
         {% if reply_count > 0 %}
             {% include me with thing=comment level=level|add:1 %}

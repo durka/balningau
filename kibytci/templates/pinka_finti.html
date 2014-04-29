@@ -5,12 +5,12 @@
 </style>
 
 {% if user.is_authenticated %}
-    <button id="br{{ thing.id }}" onclick="toggle_form('reply', '{{ type }}', '{{ thing.id }}');">{{ text }}</button>
-    {% if thing.name == user.username %}
-        <button id="be{{ thing.id }}" onclick="toggle_form('edit', '{{ type }}', '{{ thing.id }}');">Edit</button>
+    <button id="btn_reply_{{ type }}{{ thing.id }}" onclick="toggle_form('reply', '{{ type }}', '{{ thing.id }}');">{{ text }}</button>
+    {% if thing.user == user %}
+        <button id="btn_edit_{{ type }}{{ thing.id }}" onclick="toggle_form('edit', '{{ type }}', '{{ thing.id }}');">Edit</button>
     {% endif %}
-    <button style="display: none" id="bc{{ thing.id }}" onclick="toggle_form('cancel', '{{ type }}', '{{ thing.id }}');">Cancel</button>
-    <div id="{{ type }}{{ thing.id }}" style="display: none">
+    <button style="display: none" id="btn_cancel_{{ type }}{{ thing.id }}" onclick="toggle_form('cancel', '{{ type }}', '{{ thing.id }}');">Cancel</button>
+    <div id="frm_reply_{{ type }}{{ thing.id }}" style="display: none">
         {% get_comment_form for thing as form %}
         <form action="{% comment_form_target %}" method="post">
             <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf }}"/>
@@ -23,12 +23,12 @@
             <input type="submit" name="submit" value="Post">
         </form>
     </div>
-    {% if thing.name == user.username %}
-        <div id="{{ type }}{{ thing.id }}edit" style="display: none">
-            {% get_comment_form for this as form %}
-            <form action="{% comment_form_target %}" method="post">
+    {% if thing.user == user %}
+        <div id="frm_edit_{{ type }}{{ thing.id }}" style="display: none">
+            {% get_comment_form for thing as form %}
+            <form action="/kibytci/comments/cikre/{{ thing.id }}/" method="post">
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf }}"/>
-                {{ form.comment }}
+                <textarea id="id_comment" rows="10" cols="40" name="comment">{{ thing.comment }}</textarea>
                 {{ form.honeypot }}
                 {{ form.content_type }}
                 {{ form.object_pk }}

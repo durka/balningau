@@ -3,6 +3,7 @@ from django.core.context_processors import csrf
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.contrib import auth
 from django.template import RequestContext
+from django_comments.models import Comment
 from kibytci.models import User, Gismu, Proposal
 
 def ro_gismu(request):
@@ -17,6 +18,12 @@ def selstidi(request, id):
     return render(request, 'selstidi.html',
                    {'selstidi': Proposal.objects.get(id=id)},
                    context_instance=RequestContext(request))
+
+def pinka_cikre(request, id):
+    comment = Comment.objects.get(id=id)
+    comment.comment = request.POST['comment']
+    comment.save()
+    return redirect('comments-comment-done')
 
 def logout(request):
     auth.logout(request)

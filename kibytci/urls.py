@@ -3,7 +3,8 @@ import views
 
 urlpatterns = patterns('',
     url(r'^ro$', views.ro_gismu),
-    #url(r'^comments/', include('django_comments.urls')),
+    url(r'^comments/cikre/(?P<id>[0-9]+)/$', views.pinka_cikre),
+    url(r'^comments/', include('django_comments.urls')),
     url(r'^selstidi/(?P<id>[0-9]+)/$', views.selstidi),
 
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
