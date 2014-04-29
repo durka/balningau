@@ -12,4 +12,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^kibytci/', include('kibytci.urls')),
+    url(r'^password/', include('password_reset.urls')),
 )

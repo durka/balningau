@@ -4,6 +4,7 @@ Markdown==2.4
 Pygments==1.6
 django-bootstrap3==3.3.0
 django-contrib-comments==1.5
+django-password-reset==0.7
 pytz==2014.2
 ecdsa==0.11
 paramiko==1.13.0

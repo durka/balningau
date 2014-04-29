@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django_comments',
+    'password_reset',
     'bootstrap3',
     'kibytci',
 )

@@ -3,31 +3,18 @@
 
 {% get_comment_list for thing as comment_list %}
 
-<script type="text/javascript">
-    function toggle_form(id, button)
-    {
-        var form = document.getElementById(id);
-        if (form.style.display == "block") {
-            form.style.display = "none";
-            button.innerHTML = button.old_innerHTML;
-        } else {
-            form.style.display = "block";
-            button.old_innerHTML = button.innerHTML;
-            button.innerHTML = "Cancel";
-        }
-    }
-</script>
-
 <dl>
     {% for comment in comment_list %}
         <dt id="c{{ comment.id }}">
             {% get_comment_count for comment as reply_count %}
             {{ comment.submit_date }} - {{ comment.name }} ({{ reply_count }} repl{{ reply_count|pluralize:"y,ies" }})
         </dt>
-        <dd>
-            {{ comment.comment|markdown|safe }}
+        <dd id="cc{{ comment.id }}">
+            <span id="ct{{ comment.id }}" data:source="{{ comment.comment }}">
+                {{ comment.comment|markdown|safe }}
+            </span>
             <br/>
-            {% include "pinka_finti.html" with thing=comment type="reply" text="Reply" csrf=csrf %}
+            {% include "pinka_finti.html" with thing=comment this=thing type="reply" text="Reply" csrf=csrf %}
         </dd>
         {% if reply_count > 0 %}
             {% include me with thing=comment level=level|add:1 %}

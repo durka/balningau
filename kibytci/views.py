@@ -3,7 +3,7 @@ from django.core.context_processors import csrf
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.contrib import auth
 from django.template import RequestContext
-from kibytci.models import Gismu, Proposal
+from kibytci.models import User, Gismu, Proposal
 
 def ro_gismu(request):
     gimste = Gismu.objects.all()
@@ -13,7 +13,22 @@ def ro_gismu(request):
                   {'gimste': gimste},
                   context_instance=RequestContext(request))
 
+def selstidi(request, id):
+    return render(request, 'selstidi.html',
+                   {'selstidi': Proposal.objects.get(id=id)},
+                   context_instance=RequestContext(request))
+
 def logout(request):
     auth.logout(request)
     return redirect(str(request.META['HTTP_REFERER']))
+
+def new_user(request):
+    user = User.objects.create_user(request.POST['username'],
+                                    password=request.POST['password'],
+                                    email=request.POST['email'],
+                                    first_name=request.POST['fullname'])
+    user.save()
+    user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
+    auth.login(request, user)
+    return redirect(request.POST['next'])
 

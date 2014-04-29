@@ -13,11 +13,44 @@
         <a href="/kibytci/accounts/login/?next={{ request.path }}">Login</a>
     {% endif %}
 </div>
+
+<script type="text/javascript">
+    function toggle_form(mode, type, id)
+    {
+        var form = $('#' + type + id);
+        var reply_button = $('#br' + id);
+        var edit_button = $('#be' + id);
+        var cancel_button = $('#bc' + id);
+
+        if (form.is(':visible')) {
+            form.hide();
+            reply_button.show();
+            edit_button.show();
+            cancel_button.hide();
+        } else {
+            switch (mode)
+            {
+                case 'reply':
+                    $('#id_comment', form).html('');
+                    break;
+                case 'edit':
+                    $('#id_comment', form).html($('#ct' + id).attr('data:source'));
+                    break;
+            }
+
+            reply_button.hide();
+            edit_button.hide();
+            cancel_button.show();
+            form.show();
+        }
+    }
+</script>
 {% endblock %}
 
 {% block content %}
 {% load comments %}
 {% load markdown %}
+
     <ol>
         {% for gismu in gimste %}
             <li>
@@ -28,12 +61,17 @@
                         <li>
                             <i>{{ proposal.cmene }}</i> ({{ comment_count }} comment{{ comment_count|pluralize }})
                             <p>
-                            <small>(type: {{ proposal.get_klesi_display }} / compat: {{ proposal.get_mapti_display }})</small>
+                                <small>(type: {{ proposal.get_klesi_display }} / compat: {{ proposal.get_mapti_display }})</small>
                             </p>
                             <p>
-                            {{ proposal.velcki|markdown|safe }}
+                                {{ proposal.velcki|markdown|safe }}
                             </p>
-                            {% include "pinka.html" with thing=proposal me="pinka.html" csrf=csrf_token level=0 %}
+                            {% comment %}
+                                {% include "pinka.html" with thing=proposal me="pinka.html" csrf=csrf_token level=0 %}
+                            {% endcomment %}
+                            <p>
+                                <a href="/kibytci/selstidi/{{ proposal.id }}/">Discuss</a>
+                            </p>
                         </li>
                     {% endfor %}
                 </ul>
