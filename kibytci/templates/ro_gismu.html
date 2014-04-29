@@ -68,7 +68,7 @@
                     {% for proposal in gismu.proposals %}
                         {% get_comment_count for proposal as comment_count %}
                         <li>
-                            <i>{{ proposal.cmene }}</i> ({{ comment_count }} comment{{ comment_count|pluralize }})
+                            <i>{{ proposal.cmene }}</i> <small>proposed by {{ proposal.prenu.first_name }} ({{ comment_count }} comment{{ comment_count|pluralize }})</small>
                             <p>
                                 <small>(type: {{ proposal.get_klesi_display }} / compat: {{ proposal.get_mapti_display }})</small>
                             </p>
@@ -76,9 +76,11 @@
                                 {{ proposal.velcki|markdown|safe }}
                             </p>
                             {% include "pinka.html" with thing=proposal me="pinka.html" csrf=csrf_token level=0 %}
+                            {% comment %}
                             <p>
                                 <a href="/kibytci/selstidi/{{ proposal.id }}/">Discuss</a>
                             </p>
+                            {% endcomment %}
                         </li>
                     {% endfor %}
                 </ul>

@@ -13,7 +13,7 @@ class Proposal(models.Model):
     gismu  = models.ForeignKey(Gismu) # one gismu has many proposals
     prenu  = models.ForeignKey(User)  # who introduced this proposal
     klesi  = models.IntegerField(     # type of proposal
-                                 choices = ((1,  'No action'),
+                                 choices = ((1, 'No action'),
                                             (2, 'Delete gismu'),
                                             (3, 'Alter place structure'),
                                             (4, 'Create new gismu')),
